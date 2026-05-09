@@ -1,7 +1,7 @@
 # CLIPO
 
 <p align="center">
-  <img src="https://ibb.co/zhfJ6wc7" alt="CLIPO Banner" width="100%" /><a href='https://postimg.cc/2bJQ3X7Z' target='_blank'><img src='https://i.postimg.cc/2bJQ3X7Z/Slide-16-9-1.png' border='0' alt='Slide-16-9-1'></a>
+  <a href='https://postimg.cc/2bJQ3X7Z' target='_blank'><img src='https://i.postimg.cc/2bJQ3X7Z/Slide-16-9-1.png' border='0' alt='Slide-16-9-1'></a>
 </p>
 
 <p align="center">
