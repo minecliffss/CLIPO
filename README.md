@@ -1,7 +1,7 @@
 # CLIPO
 
 <p align="center">
-  <img src="https://kommodo.ai/i/OMQUIvwoNFXpUBdpNCB1" alt="CLIPO Banner" width="100%" />
+  <img src="https://ibb.co/zhfJ6wc7" alt="CLIPO Banner" width="100%" />
 </p>
 
 <p align="center">
