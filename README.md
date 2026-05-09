@@ -1,76 +1,163 @@
-# Lensora Gallery
+# CLIPO
 
-A full-stack photo gallery web app with Pinterest-style masonry layout.
+<p align="center">
+  <img src="https://kommodo.ai/i/OMQUIvwoNFXpUBdpNCB1" alt="CLIPO Banner" width="100%" />
+</p>
 
-## Project Structure
+<p align="center">
+  <strong>AI-powered photo gallery with semantic search</strong>
+</p>
 
-```
-lensora-gallery-new/
-├── frontend/          # Next.js + shadcn/ui frontend
-│   ├── src/
-│   │   ├── app/       # Next.js app router pages
-│   │   ├── components/# React components
-│   │   └── lib/       # Utilities
-│   └── public/        # Static assets
-│
-└── backend/           # Express.js API server
-    ├── server.js      # Main server file
-    └── package.json
-```
+<p align="center">
+  Search your photos using natural language instantly.
+</p>
+
+---
 
 ## Features
 
-- **Pinterest-style masonry grid** with real image aspect ratios
-- **Search bar** (centered in top navbar)
-- **Collapsible left sidebar** with navigation
-- **Image lightbox** - click any image to open full view with prev/next
-- **Dark/light theme toggle**
-- **Skeleton loading** while images load
-- **DM Sans** font
-- **0px gap** between images
+- Pinterest-style masonry gallery
+- AI-ready semantic photo search
+- Real-time image loading
+- Dark and light theme support
+- Fullscreen image lightbox
+- Responsive modern UI
+- DM Sans typography
+- Collapsible navigation sidebar
+- Skeleton loading animations
+- Zero-gap masonry layout
+
+---
+
+## Project Structure
+
+```bash
+clipo/
+├── frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   ├── components/
+│   │   └── lib/
+│   └── public/
+│
+└── backend/
+    ├── server.js
+    └── package.json
+```
+
+---
 
 ## Quick Start
 
-### Option 1: Start both at once (from root)
+### Clone Repository
 
 ```bash
-cd /home/daniel/Desktop/Lensora/lensora-gallery-new
+git clone git@github.com:minecliffss/CLIPO.git
+cd CLIPO
+```
 
-# First time only
+---
+
+## Install Dependencies
+
+```bash
 npm install
 npm run install:all
+```
 
-# Start both frontend and backend
+---
+
+## Start Development Server
+
+```bash
 npm run dev
 ```
 
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:3001
+### Local Servers
 
-### Option 2: Start separately
+| Service | URL |
+|----------|------|
+| Frontend | http://localhost:3000 |
+| Backend API | http://localhost:3001 |
 
-**Terminal 1 - Backend:**
+---
+
+## Run Separately
+
+### Backend
+
 ```bash
-cd /home/daniel/Desktop/Lensora/lensora-gallery-new/backend
+cd backend
 npm start
 ```
 
-**Terminal 2 - Frontend:**
+### Frontend
+
 ```bash
-cd /home/daniel/Desktop/Lensora/lensora-gallery-new/frontend
+cd frontend
 npm run dev
 ```
+
+---
 
 ## API Endpoints
 
 | Endpoint | Description |
 |----------|-------------|
-| `GET /api/images` | List all images with dimensions |
-| `GET /api/health` | Health check |
-| `GET /images/:filename` | Serve image file |
+| `GET /api/images` | Fetch all image metadata |
+| `GET /api/health` | API health status |
+| `GET /images/:filename` | Serve image files |
+
+---
 
 ## Tech Stack
 
-**Frontend:** Next.js 16, React 19, TypeScript, Tailwind CSS v4, shadcn/ui, next-themes
+### Frontend
 
-**Backend:** Express.js, Node.js, image-size
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- shadcn/ui
+- next-themes
+
+### Backend
+
+- Express.js
+- Node.js
+- image-size
+
+---
+
+## Vision
+
+CLIPO is designed to become an intelligent AI-powered gallery platform where users can:
+
+- Search photos using natural language
+- Organize memories automatically
+- Find images instantly with AI embeddings
+- Build searchable personal media libraries
+
+---
+
+## Future Plans
+
+- CLIP AI semantic embeddings
+- Natural language image search
+- Face recognition and grouping
+- Cloud synchronization
+- Desktop application with Tauri
+- Video indexing support
+- OCR text search in images
+
+---
+
+## License
+
+MIT License
+
+---
+
+<p align="center">
+  Built with Next.js and Express
+</p>
