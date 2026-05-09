@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+venv/
+.letta/
+
+# Next.js build output
+.next/
+out/
+
+# Python cache and bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.venv/
+env/
+ENV/
+.ipynb_checkpoints/
+
+# Common build directories
+dist/
+build/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+.project
+.settings/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Backend data (generated artifacts)
+backend/data/
+
+# Frontend generated assets
+frontend/public/images.json
+frontend/public/image-embeddings.json
+frontend/public/text-embeddings.json
+frontend/public/images/
+
+# Miscellaneous
+.vercel
