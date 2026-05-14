@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -22,6 +22,23 @@ export function ImageLightbox({
   onNext,
 }: ImageLightboxProps) {
   const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft" && currentIndex > 0) {
+        setLoaded(false);
+        onPrev();
+      } else if (e.key === "ArrowRight" && currentIndex < images.length - 1) {
+        setLoaded(false);
+        onNext();
+      } else if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, currentIndex, images.length, onPrev, onNext, onClose]);
 
   if (!isOpen || !images[currentIndex]) return null;
 
@@ -48,9 +65,9 @@ export function ImageLightbox({
             setLoaded(false);
             onPrev();
           }}
-          className="absolute left-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20"
+          className="absolute left-4 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition-all hover:bg-white/40 hover:scale-110"
         >
-          <ChevronLeft className="h-5 w-5" />
+          <ChevronLeft className="h-8 w-8" />
         </button>
       )}
 
@@ -62,9 +79,9 @@ export function ImageLightbox({
             setLoaded(false);
             onNext();
           }}
-          className="absolute right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20"
+          className="absolute right-4 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition-all hover:bg-white/40 hover:scale-110"
         >
-          <ChevronRight className="h-5 w-5" />
+          <ChevronRight className="h-8 w-8" />
         </button>
       )}
 

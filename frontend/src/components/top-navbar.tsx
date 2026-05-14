@@ -2,8 +2,9 @@
 
 import { ThemeToggle } from "./theme-toggle";
 import { Input } from "@/components/ui/input";
-import { Search, X, Menu } from "lucide-react";
+import { Search, X, Menu, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface TopNavbarProps {
   searchQuery: string;
@@ -20,18 +21,23 @@ export function TopNavbar({
 }: TopNavbarProps) {
   return (
     <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-9 w-9 shrink-0"
-        onClick={onToggleSidebar}
-      >
-        {sidebarOpen ? (
-          <X className="h-[1.2rem] w-[1.2rem]" />
-        ) : (
-          <Menu className="h-[1.2rem] w-[1.2rem]" />
-        )}
-      </Button>
+      <div className="flex items-center gap-3">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-9 w-9 shrink-0"
+          onClick={onToggleSidebar}
+        >
+          {sidebarOpen ? (
+            <X className="h-[1.2rem] w-[1.2rem]" />
+          ) : (
+            <Menu className="h-[1.2rem] w-[1.2rem]" />
+          )}
+        </Button>
+        <div className="flex items-center gap-2">
+          <span className="text-lg font-semibold">CLIPO</span>
+        </div>
+      </div>
 
       <div className="flex flex-1 items-center justify-center px-4">
         <div className="relative w-full max-w-xl">
@@ -46,7 +52,12 @@ export function TopNavbar({
         </div>
       </div>
 
-      <ThemeToggle />
+      <div className="flex items-center gap-4">
+        <Link href="/settings" className="flex items-center justify-center h-9 w-9 rounded-full hover:bg-accent">
+          <Settings className="h-[1.2rem] w-[1.2rem] text-muted-foreground" />
+        </Link>
+        <ThemeToggle />
+      </div>
     </header>
   );
 }

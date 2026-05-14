@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "install:all": "cd frontend && npm install",
+    "install:python": "cd backend && pip install -r requirements.txt",
+    "install:all": "npm run install:python && cd frontend && npm install",
     "dev": "concurrently \"bash backend/start.sh\" \"cd frontend && npm run dev\"",
     "build": "cd frontend && npm run build",
     "start:backend": "bash backend/start.sh",

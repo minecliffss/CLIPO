@@ -1,44 +1,29 @@
-# Dependencies
-node_modules/
+# Python virtual environments
 venv/
-.letta/
-
-# Next.js build output
-.next/
-out/
+.venv/
+env/
+ENV/
 
 # Python cache and bytecode
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+.Python
+*.egg-info/
+
+# Python testing and type checking
 .pytest_cache/
 .mypy_cache/
-.venv/
-env/
-ENV/
+.coverage
+htmlcov/
+*.egg
+
+# Jupyter notebook checkpoints
 .ipynb_checkpoints/
 
-# Common build directories
-dist/
-build/
-
-# OS files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# IDEs and editors
-.vscode/
-.idea/
-*.swp
-*.swo
-.project
-.settings/
+# Letta
+.letta/
 
 # Environment variables
 .env
@@ -48,22 +33,71 @@ Thumbs.db
 .env.production.local
 *.env
 
+# Node modules (all)
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Package lock files (optional - keep if needed)
+package-lock.json
+frontend/package-lock.json
+backend/package-lock.json
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
 # Logs
-logs
 *.log
+logs/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 
-# Backend data (generated artifacts)
-backend/data/
+# OS files
+.DS_Store
+Thumbs.db
 
-# Frontend generated assets
-frontend/public/images.json
-frontend/public/image-embeddings.json
-frontend/public/text-embeddings.json
-frontend/public/images/
+# ====================
+# PRIVATE DATA
+# ====================
 
-# Miscellaneous
-.vercel
+# Database files (all types)
+*.db
+*.sqlite
+*.sqlite3
+*.mdb
+
+# Data folders - ALL content
+backend/data/*
+!backend/data/.gitkeep
+
+# Image paths and metadata (user specific)
+backend/data/image_paths.json
+backend/data/image_meta.json
+
+# Config with user paths
+backend/data/config.json
+
+# FAISS index and embeddings
+backend/data/faiss_index.bin
+backend/data/embeddings.npy
+
+# Face database
+backend/data/faces.db
+
+# Any JSON data files in any data directories
+**/data/*.json
+
+# Cache folders
+.cache/
+frontend/.cache/
+.next/cache/
+
+# Temp files
+*.tmp
+*.temp
+tmp/
+temp/

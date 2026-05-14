@@ -6,6 +6,7 @@ import { LeftSidebar } from "@/components/left-sidebar";
 import { ImageCard } from "@/components/image-card";
 import { ImageLightbox } from "@/components/image-lightbox";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 interface ImageItem {
   name: string;
@@ -18,6 +19,84 @@ interface ImageItem {
 
 const API_BASE = "http://localhost:3001";
 
+function FolderOnboarding({ onFolderSelect }: { onFolderSelect: (folder: string) => void }) {
+  const [folderPath, setFolderPath] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!folderPath.trim()) return;
+
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/folder`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ folder: folderPath }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        onFolderSelect(folderPath);
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      alert("Failed to set folder");
+    }
+    setLoading(false);
+  };
+
+  const handleQuickFolder = (path: string) => {
+    setFolderPath(path);
+  };
+
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center p-4">
+      <div className="max-w-md w-full text-center space-y-8">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Welcome to CLIPO</h1>
+          <p className="text-muted-foreground mt-2">AI-powered photo search for your gallery</p>
+        </div>
+
+        <div className="rounded-lg border bg-card p-6 text-left">
+          <h2 className="text-lg font-semibold mb-4">Select your photo folder</h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            Choose the folder containing your photos. The AI will index them for semantic search.
+          </p>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="text"
+              value={folderPath}
+              onChange={(e) => setFolderPath(e.target.value)}
+              placeholder="/home/daniel/Pictures"
+              className="w-full px-3 py-2 border rounded-md bg-background"
+            />
+            <Button type="submit" className="w-full" disabled={loading || !folderPath.trim()}>
+              {loading ? "Indexing..." : "Start Indexing"}
+            </Button>
+          </form>
+        </div>
+
+        <div>
+          <p className="text-sm text-muted-foreground mb-2">Quick select:</p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {["~/Pictures", "~/Desktop/Images", "~/Images", "~/Photos"].map((p) => (
+              <button
+                key={p}
+                onClick={() => handleQuickFolder(p)}
+                className="text-sm px-3 py-1 rounded-full border hover:bg-accent"
+              >
+                {p}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [images, setImages] = useState<ImageItem[]>([]);
   const [aiResults, setAiResults] = useState<ImageItem[] | null>(null);
@@ -28,9 +107,24 @@ export default function Home() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [folderConfigured, setFolderConfigured] = useState<boolean | null>(null);
 
-  // Load all images on mount
+  // Check folder configuration
   useEffect(() => {
+    fetch(`${API_BASE}/api/folder`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFolderConfigured(!!data.folder);
+        if (data.folder) {
+          loadImages();
+        } else {
+          setLoading(false);
+        }
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const loadImages = () => {
     fetch(`${API_BASE}/api/images`)
       .then((res) => res.json())
       .then((data) => {
@@ -38,7 +132,6 @@ export default function Home() {
         setLoading(false);
       })
       .catch(() => {
-        // Fallback to local images.json if backend is down
         fetch("/images.json")
           .then((res) => res.json())
           .then((data) => {
@@ -47,7 +140,13 @@ export default function Home() {
           })
           .catch(() => setLoading(false));
       });
-  }, []);
+  };
+
+  const handleFolderSelect = (folder: string) => {
+    setFolderConfigured(true);
+    setLoading(true);
+    setTimeout(loadImages, 2000);
+  };
 
   // Debounced AI Search
   useEffect(() => {
@@ -94,6 +193,18 @@ export default function Home() {
     setLightboxOpen(true);
   };
 
+  if (folderConfigured === null) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (!folderConfigured) {
+    return <FolderOnboarding onFolderSelect={handleFolderSelect} />;
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <TopNavbar
@@ -124,16 +235,16 @@ export default function Home() {
             </div>
 
             {loading ? (
-              <div className="columns-2 gap-0 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6">
+              <div className="grid grid-cols-2 gap-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                 {Array.from({ length: 18 }).map((_, i) => (
                   <Skeleton
                     key={i}
-                    className="mb-0 aspect-[3/4] break-inside-avoid"
+                    className="mb-0 aspect-[3/4]"
                   />
                 ))}
               </div>
             ) : (
-              <div className="columns-2 gap-0 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6">
+              <div className="grid grid-cols-2 gap-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                 {filteredImages.map((image, index) => (
                   <ImageCard
                     key={`${image.name}-${index}`}
@@ -152,7 +263,10 @@ export default function Home() {
       </div>
 
       <ImageLightbox
-        images={filteredImages}
+        images={filteredImages.map(img => ({
+          ...img,
+          src: img.src.startsWith("http") ? img.src : `${API_BASE}${img.src}`
+        }))}
         currentIndex={lightboxIndex}
         isOpen={lightboxOpen}
         onClose={() => setLightboxOpen(false)}

@@ -1,4 +1,4 @@
 #!/bin/bash
-PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$PROJECT_ROOT/backend"
+cd "$(dirname "$0")"
+source ../venv/bin/activate
 ../venv/bin/python server.py
